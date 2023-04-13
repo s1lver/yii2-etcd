@@ -6,7 +6,9 @@
   "minimum-stability": "dev",
   "require": {
     "php": "^8.1",
-    "grpc/grpc": "^1.42.0"
+    "ext-curl": "*",
+    "grpc/grpc": "^1.42.0",
+    "guzzlehttp/guzzle": "^7.4.5"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
