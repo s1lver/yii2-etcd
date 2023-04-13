@@ -1,0 +1,39 @@
+{
+  "name": "s1lver/etcd",
+  "description": "Yii2 etcd component",
+  "type": "yii2-extension",
+  "license": "BSD-3-Clause",
+  "minimum-stability": "dev",
+  "require": {
+    "php": "^8.1",
+    "grpc/grpc": "^1.42.0"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest",
+    "phpunit/phpunit": "^10.0.0",
+    "yiisoft/yii2": "^2.0.47"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "S1lver\\Etcd\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "S1lver\\Etcd\\Tests\\": "tests"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "enabled": false
+    }
+  }
+}
