@@ -11,4 +11,4 @@ down:					## Down active containers
 	docker-compose -f tests/docker/docker-compose.yml down
 
 run-php:				## Exec PHP container
-	docker exec -it etcd-php shRun
+	docker exec -it etcd-php sh

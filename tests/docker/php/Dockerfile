@@ -20,3 +20,4 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 WORKDIR /var/www
 
 ENTRYPOINT ["sh", "tests/docker/entrypoint.sh"]
+CMD ["sleep", "infinity"]
