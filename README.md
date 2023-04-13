@@ -50,9 +50,9 @@ $config = [
 
 Get key value
 ```php
-Yii::$app->etcd->getKey('hello');
+Yii::$app->etcd->getKey('hello')->firstKeyValue;
 
-// {"header":{"cluster_id":"14841639068965178418","member_id":"10276657743932975437","revision":"3","raft_term":"4"},"kvs":[{"key":"hello","create_revision":"3","mod_revision":"3","version":"1","value":"aGVsbG8="}],"count":"1"}
+// Hello
 ```
 
 Get etcd version

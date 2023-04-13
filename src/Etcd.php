@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use JsonException;
+use S1lver\Etcd\Rest\RangeResponse;
 use yii\base\Component;
 
 /**
@@ -46,10 +47,10 @@ class Etcd extends Component
 
     /**
      * @param string $key
-     * @return string
+     * @return RangeResponse
      * @throws GuzzleException|JsonException
      */
-    public function getKey(string $key): string
+    public function getKey(string $key): RangeResponse
     {
         $response = $this->client->post(
             $this->host.self::ETCD_VERSION.EtcdEndpoint::RANGE,
@@ -58,7 +59,7 @@ class Etcd extends Component
             ]
         );
 
-        return $response->getBody()->getContents();
+        return new RangeResponse(json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR));
     }
 
     public function put(string $key, string $value): bool
