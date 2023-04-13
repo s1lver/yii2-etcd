@@ -4,7 +4,9 @@ https://etcd.io
 
 ## Required
 
-PHP: >= 8.1
+- PHP: >= 8.1
+- grpc - for RPC
+- protobuf - for RPC
 
 ## Install
 
@@ -19,6 +21,14 @@ or add
 ```
 
 to the require section of your composer.json file.
+
+## Supported etcd API version
+
+- v3
+
+## Supported etcd methods
+
+
 
 ## How to use
 
