@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  php:
+    container_name: etcd-php
+    hostname: etcd
+    build: ./php
+    volumes:
+      - ${WEB_ROOT_PATH}:/var/www
+    networks:
+      - etcd-network
+    env_file: .env
+
+networks:
+  etcd-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: '${DOCKER_SUBNET}'
