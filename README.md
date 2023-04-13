@@ -4,9 +4,9 @@ https://etcd.io
 
 ## Required
 
-- PHP: >= 8.1
-- grpc - for RPC
-- protobuf - for RPC
+- PHP: >= 8.0
+- grpc - for RPC (in developing)
+- protobuf - for RPC (in developing)
 
 ## Install
 
