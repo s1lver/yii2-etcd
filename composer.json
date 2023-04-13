@@ -1,5 +1,5 @@
 {
-  "name": "s1lver/etcd",
+  "name": "s1lver/yii2-etcd",
   "description": "Yii2 etcd component",
   "type": "yii2-extension",
   "license": "BSD-3-Clause",
