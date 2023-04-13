@@ -28,9 +28,37 @@ to the require section of your composer.json file.
 
 ## Supported etcd methods
 
+- `version`
+- `range`
+- `put`
 
 
 ## How to use
 
+Configure
+
 ```php
+$config = [
+    'components' => [
+        'etcd' => [
+            'class' => \S1lver\Etcd\Etcd::class,
+            'host' => 'etcd:2379',
+        ],
+    ],
+];
+```
+
+Get key value
+```php
+Yii::$app->etcd->getKey('hello');
+
+// {"header":{"cluster_id":"14841639068965178418","member_id":"10276657743932975437","revision":"3","raft_term":"4"},"kvs":[{"key":"hello","create_revision":"3","mod_revision":"3","version":"1","value":"aGVsbG8="}],"count":"1"}
+```
+
+Get etcd version
+
+```php
+Yii::$app->etcd->version;
+
+// {"etcdserver":"3.5.8","etcdcluster":"3.5.0"}
 ```
