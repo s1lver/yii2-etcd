@@ -13,6 +13,6 @@ final class EtcdEndpoint
     // KV
 
     public const PUT = '/kv/put';
-    public const RANGE = 'kv/range';
+    public const RANGE = '/kv/range';
 
 }
