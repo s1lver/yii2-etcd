@@ -58,8 +58,8 @@ class Etcd extends Component
         $response = $this->client->post(
             $this->host.self::ETCD_VERSION.EtcdEndpoint::RANGE,
             [
-                RequestOptions::BODY => json_encode(['key' => $key], JSON_THROW_ON_ERROR),
-                RequestOptions::HEADERS => ['Authorization' => $this->authenticate()->token]
+                RequestOptions::BODY => json_encode(['key' => trim(base64_encode($key))], JSON_THROW_ON_ERROR),
+                RequestOptions::HEADERS => ['Authorization' => $this->authenticate()->token],
             ]
         );
 
