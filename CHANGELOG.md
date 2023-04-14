@@ -1,5 +1,8 @@
 # Changelog yii2 etcd component
 
+## 1.0.2
+- Fixed `getKey` method
+
 ## 1.0.1
 - Added authenticate
 
