@@ -31,6 +31,7 @@ to the require section of your composer.json file.
 - `version`
 - `range`
 - `put`
+- `authenticate`
 
 
 ## How to use
@@ -43,6 +44,8 @@ $config = [
         'etcd' => [
             'class' => \S1lver\Etcd\Etcd::class,
             'host' => 'etcd:2379',
+            'user' => 'username',
+            'password' => 'password',
         ],
     ],
 ];

@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use JsonException;
+use S1lver\Etcd\Rest\AuthenticateResponse;
 use S1lver\Etcd\Rest\RangeResponse;
 use yii\base\Component;
 
@@ -21,6 +22,8 @@ class Etcd extends Component
     private const ETCD_VERSION = '/v3';
 
     public string $host = '';
+    public string $user = '';
+    public string $password = '';
 
     private Client $client;
 
@@ -56,6 +59,7 @@ class Etcd extends Component
             $this->host.self::ETCD_VERSION.EtcdEndpoint::RANGE,
             [
                 RequestOptions::BODY => json_encode(['key' => $key], JSON_THROW_ON_ERROR),
+                RequestOptions::HEADERS => ['Authorization' => $this->authenticate()->token]
             ]
         );
 
@@ -75,5 +79,24 @@ class Etcd extends Component
         );
 
         return 200 === $response->getStatusCode();
+    }
+
+    /**
+     * @return AuthenticateResponse
+     * @throws GuzzleException|JsonException
+     */
+    public function authenticate(): AuthenticateResponse
+    {
+        $response = $this->client->post(
+            $this->host.self::ETCD_VERSION.EtcdEndpoint::AUTHENTICATE,
+            [
+                RequestOptions::BODY => json_encode(
+                    ['name' => $this->user, 'password' => $this->password],
+                    JSON_THROW_ON_ERROR
+                ),
+            ]
+        );
+
+        return new AuthenticateResponse(json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR));
     }
 }

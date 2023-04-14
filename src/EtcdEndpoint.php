@@ -15,4 +15,6 @@ final class EtcdEndpoint
     public const PUT = '/kv/put';
     public const RANGE = '/kv/range';
 
+    // Authentication
+    public const AUTHENTICATE =  '/auth/authenticate';
 }
