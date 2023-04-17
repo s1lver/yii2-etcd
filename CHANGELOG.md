@@ -1,5 +1,9 @@
 # Changelog yii2 etcd component
 
+## 1.0.3
+- Added request handler without authenticate
+- 
+
 ## 1.0.2
 - Fixed `getKey` method
 

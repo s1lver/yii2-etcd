@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace S1lver\Etcd;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use JsonException;
 use S1lver\Etcd\Rest\AuthenticateResponse;
 use S1lver\Etcd\Rest\RangeResponse;
+use Yii;
 use yii\base\Component;
 
 /**
@@ -55,12 +57,17 @@ class Etcd extends Component
      */
     public function getKey(string $key): RangeResponse
     {
+        $token = $this->authenticate()->token;
+
+        $options = [
+            RequestOptions::BODY => json_encode(['key' => trim(base64_encode($key))], JSON_THROW_ON_ERROR),
+        ];
+        $options = array_merge($options, empty($token)?[]:[
+            RequestOptions::HEADERS => ['Authorization' => $this->authenticate()->token],
+        ]);
         $response = $this->client->post(
             $this->host.self::ETCD_VERSION.EtcdEndpoint::RANGE,
-            [
-                RequestOptions::BODY => json_encode(['key' => trim(base64_encode($key))], JSON_THROW_ON_ERROR),
-                RequestOptions::HEADERS => ['Authorization' => $this->authenticate()->token],
-            ]
+            $options
         );
 
         return new RangeResponse(json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR));
@@ -87,16 +94,23 @@ class Etcd extends Component
      */
     public function authenticate(): AuthenticateResponse
     {
-        $response = $this->client->post(
-            $this->host.self::ETCD_VERSION.EtcdEndpoint::AUTHENTICATE,
-            [
-                RequestOptions::BODY => json_encode(
-                    ['name' => $this->user, 'password' => $this->password],
-                    JSON_THROW_ON_ERROR
-                ),
-            ]
-        );
+        $content = json_encode(['header' => [], 'token' => ''], JSON_THROW_ON_ERROR);
 
-        return new AuthenticateResponse(json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR));
+        try {
+            $response = $this->client->post(
+                $this->host.self::ETCD_VERSION.EtcdEndpoint::AUTHENTICATE,
+                [
+                    RequestOptions::BODY => json_encode(
+                        ['name' => $this->user, 'password' => $this->password],
+                        JSON_THROW_ON_ERROR
+                    ),
+                ]
+            );
+            $content = $response->getBody()->getContents();
+        } catch (ClientException $exception) {
+            Yii::warning($exception);
+        }
+
+        return new AuthenticateResponse(json_decode($content, true, 512, JSON_THROW_ON_ERROR));
     }
 }
