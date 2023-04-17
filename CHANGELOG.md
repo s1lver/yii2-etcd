@@ -2,7 +2,7 @@
 
 ## 1.0.3
 - Added request handler without authenticate
-- 
+- Added `getRange` method
 
 ## 1.0.2
 - Fixed `getKey` method

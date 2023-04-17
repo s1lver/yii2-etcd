@@ -17,6 +17,7 @@ use yii\base\Component;
 /**
  * Yii2 etcd component
  *
+ * @property-read array[] $tokenOptions
  * @property-read string $version
  */
 class Etcd extends Component
@@ -57,17 +58,37 @@ class Etcd extends Component
      */
     public function getKey(string $key): RangeResponse
     {
-        $token = $this->authenticate()->token;
-
         $options = [
             RequestOptions::BODY => json_encode(['key' => trim(base64_encode($key))], JSON_THROW_ON_ERROR),
         ];
-        $options = array_merge($options, empty($token)?[]:[
-            RequestOptions::HEADERS => ['Authorization' => $this->authenticate()->token],
-        ]);
         $response = $this->client->post(
             $this->host.self::ETCD_VERSION.EtcdEndpoint::RANGE,
-            $options
+            array_merge($options, $this->getTokenOptions())
+        );
+
+        return new RangeResponse(json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR));
+    }
+
+    /**
+     * Get all keys prefixed with "foo" ($key = foo, $rangeEnd = fop)
+     *
+     * @param string $key
+     * @param string $rangeEnd
+     * @return RangeResponse
+     * @throws GuzzleException|JsonException
+     */
+    public function getRange(string $key, string $rangeEnd): RangeResponse
+    {
+        $options = [
+            RequestOptions::BODY => json_encode(
+                ['key' => trim(base64_encode($key)), 'range_end' => trim(base64_encode($rangeEnd))],
+                JSON_THROW_ON_ERROR
+            ),
+        ];
+
+        $response = $this->client->post(
+            $this->host.self::ETCD_VERSION.EtcdEndpoint::RANGE,
+            array_merge($options, $this->getTokenOptions())
         );
 
         return new RangeResponse(json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR));
@@ -75,14 +96,15 @@ class Etcd extends Component
 
     public function put(string $key, string $value): bool
     {
+        $options = [
+            RequestOptions::BODY => json_encode(
+                ['key' => $key, 'value' => base64_encode($value)],
+                JSON_THROW_ON_ERROR
+            ),
+        ];
         $response = $this->client->post(
             $this->host.self::ETCD_VERSION.EtcdEndpoint::PUT,
-            [
-                RequestOptions::BODY => json_encode(
-                    ['key' => $key, 'value' => base64_encode($value)],
-                    JSON_THROW_ON_ERROR
-                ),
-            ]
+            array_merge($options, $this->getTokenOptions())
         );
 
         return 200 === $response->getStatusCode();
@@ -112,5 +134,20 @@ class Etcd extends Component
         }
 
         return new AuthenticateResponse(json_decode($content, true, 512, JSON_THROW_ON_ERROR));
+    }
+
+    /**
+     * @return array|array[]
+     * @throws GuzzleException|JsonException
+     */
+    private function getTokenOptions(): array
+    {
+        $token = $this->authenticate()->token;
+
+        return empty($token)
+            ?[]
+            :[
+                RequestOptions::HEADERS => ['Authorization' => $token],
+            ];
     }
 }
