@@ -1,43 +1,46 @@
 {
-  "name": "s1lver/yii2-etcd",
-  "description": "Yii2 etcd component",
-  "type": "yii2-extension",
-  "license": "BSD-3-Clause",
-  "minimum-stability": "dev",
-  "require": {
-    "php": "^8.0",
-    "ext-curl": "*",
-    "grpc/grpc": "^1.42.0",
-    "guzzlehttp/guzzle": "^7.4.5"
-  },
-  "require-dev": {
-    "roave/security-advisories": "dev-latest",
-    "yiisoft/yii2": "^2.0.45"
-  },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://asset-packagist.org"
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "S1lver\\Etcd\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "S1lver\\Etcd\\Tests\\": "tests"
-    }
-  },
-  "config": {
-    "sort-packages": true,
-    "process-timeout": 1800,
-    "fxp-asset": {
-      "enabled": false
+    "name": "s1lver/yii2-etcd",
+    "description": "Yii2 etcd component",
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.0",
+        "ext-curl": "*",
+        "grpc/grpc": "^1.42.0",
+        "guzzlehttp/guzzle": "^7.4.5"
     },
-    "allow-plugins": {
-      "yiisoft/yii2-composer": true
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "yiisoft/yii2": "^2.0.45"
+    },
+    "suggest": {
+        "ext-grpc": "Needed for the grpc protocol to work"
+    },
+    "repositories": [
+        {
+          "type": "composer",
+          "url": "https://asset-packagist.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+          "S1lver\\Etcd\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+          "S1lver\\Etcd\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        },
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
     }
-  }
 }
