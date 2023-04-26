@@ -98,7 +98,7 @@ class Etcd extends Component
     {
         $options = [
             RequestOptions::BODY => json_encode(
-                ['key' => $key, 'value' => base64_encode($value)],
+                ['key' => base64_encode(trim($key)), 'value' => base64_encode(trim($value))],
                 JSON_THROW_ON_ERROR
             ),
         ];

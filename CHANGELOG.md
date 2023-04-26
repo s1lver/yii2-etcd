@@ -1,5 +1,8 @@
 # Changelog yii2 etcd component
 
+## 1.0.5
+- Fixed `put` method
+
 ## 1.0.4
 - Removed `grpc/grpc` package from pre-implementation dependencies
 
