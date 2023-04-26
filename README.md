@@ -2,6 +2,8 @@
 
 https://etcd.io
 
+[![Latest Stable Version](https://poser.pugx.org/s1lver/yii2-etcd/v/stable.svg)](https://packagist.org/packages/s1lver/yii2-etcd)
+
 ## Required
 
 - PHP: >= 8.0
