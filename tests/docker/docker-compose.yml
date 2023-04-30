@@ -18,8 +18,8 @@ services:
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
     ports:
-      - '2379:2379'
-      - '2380:2380'
+      - '${ETCD_PEER_PORT:2379}:2379'
+      - '${ETCD_CLIENT_PORT:2380}:2380'
     volumes:
       - ${ROOT_PATH}/tests/docker/etcd/etcd.conf.yml:/opt/bitnami/etcd/conf/etcd.conf.yml
     networks:
