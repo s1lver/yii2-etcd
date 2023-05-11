@@ -12,3 +12,6 @@ down:					## Down active containers
 
 run-php:				## Exec PHP container
 	docker exec -it etcd-php sh
+
+protoc:					## Create\update services from .proto. Params {{ s=SERVICE NAME }}
+	docker exec -i etcd-php sh -c "cd /var/www/src/RPC/ && protoc --php_out=. ./Proto/$(s).proto"
