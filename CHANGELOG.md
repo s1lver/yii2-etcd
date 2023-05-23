@@ -1,5 +1,8 @@
 # Changelog yii2 etcd component
 
+## 1.1.0 (in developing)
+- Added the ability to switch protocol between grpc and http
+
 ## 1.0.6 (2023-05-23)
 - Added configure options for HTTP client (alxlapin)
 
