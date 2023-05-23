@@ -1,10 +1,10 @@
 syntax = "proto3";
+
+import "src/RPC/Proto/kv.proto";
+
 package etcdserverpb;
 
 option php_namespace = "Etcd";
-
-import "Proto/kv.proto";
-
 
 service KV {
   // Range gets the keys in the range from the store.
