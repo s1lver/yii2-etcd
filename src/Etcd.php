@@ -27,6 +27,10 @@ class Etcd extends Component
     public string $host = '';
     public string $user = '';
     public string $password = '';
+    /**
+     * @var array guzzle client options
+     */
+    public array $clientOptions = [];
 
     private Client $client;
 
@@ -37,7 +41,7 @@ class Etcd extends Component
     {
         parent::init();
 
-        $this->client = new Client();
+        $this->client = new Client($this->clientOptions);
     }
 
     /**
