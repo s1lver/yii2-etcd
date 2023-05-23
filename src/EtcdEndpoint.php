@@ -6,12 +6,13 @@ namespace S1lver\Etcd;
 
 final class EtcdEndpoint
 {
-    // Common
+    // Version
+    public const ETCD_VERSION = '/v3';
 
+    // Common
     public const VERSION = '/version';
 
     // KV
-
     public const PUT = '/kv/put';
     public const RANGE = '/kv/range';
 
