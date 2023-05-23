@@ -7,7 +7,9 @@
     "require": {
         "php": "^8.0",
         "ext-curl": "*",
-        "guzzlehttp/guzzle": "^7.4.5"
+        "guzzlehttp/guzzle": "^7.4.5",
+        "grpc/grpc": "^1.42.0",
+        "google/protobuf": "^v3.11.4"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
