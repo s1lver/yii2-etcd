@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace S1lver\Etcd;
 
 use S1lver\Etcd\Rest\EtcdRestModel;
-use S1lver\Etcd\Rest\RangeResponse;
 use S1lver\Etcd\RPC\EtcdGrpcModel;
 use yii\base\Component;
 
@@ -53,9 +52,9 @@ class Etcd extends Component
 
     /**
      * @param string $key
-     * @return RangeResponse
+     * @return EtcdRangeResponseInterface
      */
-    public function getKey(string $key): RangeResponse
+    public function getKey(string $key): EtcdRangeResponseInterface
     {
         return $this->service->getKey($key);
     }
@@ -65,9 +64,9 @@ class Etcd extends Component
      *
      * @param string $key
      * @param string $rangeEnd
-     * @return RangeResponse
+     * @return EtcdRangeResponseInterface
      */
-    public function getRange(string $key, string $rangeEnd): RangeResponse
+    public function getRange(string $key, string $rangeEnd): EtcdRangeResponseInterface
     {
         return $this->service->getRange($key, $rangeEnd);
     }
