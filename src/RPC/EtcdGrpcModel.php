@@ -30,6 +30,10 @@ class EtcdGrpcModel implements EtcdServiceInterface
      */
     public function __construct(string $host, string $user, string $password, array $clientOptions)
     {
+        if (!extension_loaded('grpc') || !extension_loaded('protobuf')) {
+            throw new EtcdException('Not install protobuf or grpc extensions');
+        }
+
         $this->host = $host;
         $this->user = $user;
         $this->password = $password;
