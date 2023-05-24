@@ -26,7 +26,11 @@
     ],
     "autoload": {
         "psr-4": {
-          "S1lver\\Etcd\\": "src"
+            "S1lver\\Etcd\\": "src",
+            "Etcd\\": "src/RPC/Etcd",
+            "GPBMetadata\\Proto\\": [
+                "src/RPC/GPBMetadata/Proto"
+            ]
         }
     },
     "autoload-dev": {
