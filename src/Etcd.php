@@ -6,12 +6,14 @@ namespace S1lver\Etcd;
 
 use S1lver\Etcd\Rest\EtcdRestModel;
 use S1lver\Etcd\RPC\EtcdGrpcModel;
+use S1lver\Etcd\Services\EtcdAuthInterface;
 use yii\base\Component;
 
 /**
  * Yii2 etcd component
  *
  * @property-read array[] $tokenOptions
+ * @property-read EtcdAuthInterface $auth
  * @property-read string $version
  */
 class Etcd extends Component
@@ -79,5 +81,15 @@ class Etcd extends Component
     public function put(string $key, string $value): bool
     {
         return $this->service->put($key, $value);
+    }
+
+    /**
+     * Authentication
+     *
+     * @return EtcdAuthInterface
+     */
+    public function getAuth(): EtcdAuthInterface
+    {
+        return $this->service->getAuthModel();
     }
 }

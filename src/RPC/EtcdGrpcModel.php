@@ -12,6 +12,8 @@ use Google\Protobuf\Internal\RepeatedField;
 use Grpc\ChannelCredentials;
 use S1lver\Etcd\EtcdServiceInterface;
 use S1lver\Etcd\Exceptions\EtcdException;
+use S1lver\Etcd\Services\EtcdAuthGrpc;
+use S1lver\Etcd\Services\EtcdAuthInterface;
 use const Grpc\STATUS_OK;
 
 class EtcdGrpcModel implements EtcdServiceInterface
@@ -42,6 +44,11 @@ class EtcdGrpcModel implements EtcdServiceInterface
         $this->clientOptions = $clientOptions;
 
         $this->client = $this->getClient();
+    }
+
+    public function getAuthModel(): EtcdAuthInterface
+    {
+        return new EtcdAuthGrpc($this->host);
     }
 
     public function getVersion(): string
