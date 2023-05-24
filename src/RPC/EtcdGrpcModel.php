@@ -48,7 +48,7 @@ class EtcdGrpcModel implements EtcdServiceInterface
 
     public function getAuthModel(): EtcdAuthInterface
     {
-        return new EtcdAuthGrpc($this->host);
+        return new EtcdAuthGrpc($this->host, $this->user, $this->password);
     }
 
     public function getVersion(): string
