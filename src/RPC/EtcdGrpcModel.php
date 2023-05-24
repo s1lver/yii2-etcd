@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace S1lver\Etcd\RPC;
 
+use Etcd\KeyValue;
 use Etcd\KVClient;
 use Etcd\PutRequest;
 use Etcd\RangeRequest;
+use Google\Protobuf\Internal\RepeatedField;
 use Grpc\ChannelCredentials;
 use S1lver\Etcd\EtcdServiceInterface;
 use S1lver\Etcd\Exceptions\EtcdException;
-use S1lver\Etcd\Rest\RangeResponse;
 use const Grpc\STATUS_OK;
 
 class EtcdGrpcModel implements EtcdServiceInterface
@@ -27,6 +28,7 @@ class EtcdGrpcModel implements EtcdServiceInterface
      * @param string $user
      * @param string $password
      * @param array $clientOptions
+     * @throws EtcdException
      */
     public function __construct(string $host, string $user, string $password, array $clientOptions)
     {
@@ -57,8 +59,10 @@ class EtcdGrpcModel implements EtcdServiceInterface
         [$response, $status] = $this->client->Range($request)->wait();
 
         if (STATUS_OK !== $status) {
-            throw new EtcdException('');
+            throw new EtcdException('Error');
         }
+
+        return new RangeResponse($this->collectKvs($response->getKvs()));
     }
 
     public function getKey(string $key): RangeResponse
@@ -69,11 +73,11 @@ class EtcdGrpcModel implements EtcdServiceInterface
         /** @var \Etcd\RangeResponse $response */
         [$response, $status] = $this->client->Range($request)->wait();
 
-        if (STATUS_OK !== $status) {
-            throw new EtcdException('');
+        if (STATUS_OK !== $status->code) {
+            throw new EtcdException('Error');
         }
 
-        $response->getKvs();
+        return new RangeResponse($this->collectKvs($response->getKvs()));
     }
 
     public function put(string $key, string $value): bool
@@ -92,5 +96,25 @@ class EtcdGrpcModel implements EtcdServiceInterface
         return new KVClient($this->host, [
             'credentials' => ChannelCredentials::createInsecure(),
         ]);
+    }
+
+    /**
+     * @param RepeatedField $fields
+     * @return array
+     */
+    private function collectKvs(RepeatedField $fields): array
+    {
+        $kvs = [];
+        $protobufKvs = $fields;
+
+        foreach ($protobufKvs as $item) {
+            /** @var KeyValue $item */
+            $kvs['kvs'][] = [
+                'key' => $item->getKey(),
+                'value' => $item->getValue(),
+            ];
+        }
+
+        return $kvs;
     }
 }

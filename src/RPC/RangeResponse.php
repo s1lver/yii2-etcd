@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace S1lver\Etcd\Rest;
+namespace S1lver\Etcd\RPC;
 
 use S1lver\Etcd\EtcdRangeResponseInterface;
 use yii\base\BaseObject;
 
 /**
+ *
  * @property-read string $firstKeyValue
  */
 class RangeResponse extends BaseObject implements EtcdRangeResponseInterface
@@ -25,7 +26,7 @@ class RangeResponse extends BaseObject implements EtcdRangeResponseInterface
     public function getFirstKeyValue(): string
     {
         if ([] !== $this->kvs) {
-            return base64_decode($this->kvs[0]['value']);
+            return $this->kvs[0]['value'];
         }
 
         return '';

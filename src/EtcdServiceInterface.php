@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace S1lver\Etcd;
 
-use S1lver\Etcd\Rest\RangeResponse;
-
 interface EtcdServiceInterface
 {
-    public function getKey(string $key): RangeResponse;
+    public function getKey(string $key): EtcdRangeResponseInterface;
 
-    public function getRange(string $key, string $rangeEnd): RangeResponse;
+    public function getRange(string $key, string $rangeEnd): EtcdRangeResponseInterface;
 
     public function put(string $key, string $value): bool;
 
