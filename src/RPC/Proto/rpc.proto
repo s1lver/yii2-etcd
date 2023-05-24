@@ -444,6 +444,8 @@ message AuthDisableRequest {
 }
 
 message AuthenticateRequest {
+    string name = 1;
+    string password = 2;
 }
 
 message UserAddRequest {
@@ -489,6 +491,8 @@ message AuthDisableResponse {
 
 message AuthenticateResponse {
   ResponseHeader header = 1;
+  // token is an authorized token that can be used in succeeding RPCs
+  string token = 2;
 }
 
 message UserAddResponse {

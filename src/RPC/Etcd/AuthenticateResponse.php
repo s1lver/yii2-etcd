@@ -17,6 +17,12 @@ class AuthenticateResponse extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.etcdserverpb.ResponseHeader header = 1;</code>
      */
     protected $header = null;
+    /**
+     * token is an authorized token that can be used in succeeding RPCs
+     *
+     * Generated from protobuf field <code>string token = 2;</code>
+     */
+    protected $token = '';
 
     /**
      * Constructor.
@@ -25,6 +31,8 @@ class AuthenticateResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Etcd\ResponseHeader $header
+     *     @type string $token
+     *           token is an authorized token that can be used in succeeding RPCs
      * }
      */
     public function __construct($data = NULL) {
@@ -60,6 +68,32 @@ class AuthenticateResponse extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Etcd\ResponseHeader::class);
         $this->header = $var;
+
+        return $this;
+    }
+
+    /**
+     * token is an authorized token that can be used in succeeding RPCs
+     *
+     * Generated from protobuf field <code>string token = 2;</code>
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * token is an authorized token that can be used in succeeding RPCs
+     *
+     * Generated from protobuf field <code>string token = 2;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setToken($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->token = $var;
 
         return $this;
     }
