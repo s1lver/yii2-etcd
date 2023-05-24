@@ -14,4 +14,4 @@ run-php:				## Exec PHP container
 	docker exec -it etcd-php sh
 
 protoc:					## Create\update services from .proto. Params {{ s=SERVICE NAME }}
-	docker exec -i etcd-php sh -c "cd /var/www/src/RPC/ && protoc --php_out=. ./Proto/$(s).proto"
+	docker exec -i etcd-php sh -c "cd /var/www/src/RPC/ && protoc -I . --php_out=. --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_php_plugin` Proto/$(s).proto"
