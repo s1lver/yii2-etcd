@@ -23,6 +23,8 @@ class EtcdGrpcModel implements EtcdServiceInterface
     public string $password = '';
     public array $clientOptions = [];
 
+    public array $metadata = [];
+
     private KVClient $client;
 
     /**
@@ -81,7 +83,7 @@ class EtcdGrpcModel implements EtcdServiceInterface
         [$response, $status] = $this->client->Range($request)->wait();
 
         if (STATUS_OK !== $status->code) {
-            throw new EtcdException('Error');
+            throw new EtcdException('Errors: '.$status->details);
         }
 
         return new RangeResponse($this->collectKvs($response->getKvs()));
@@ -102,6 +104,11 @@ class EtcdGrpcModel implements EtcdServiceInterface
     {
         return new KVClient($this->host, [
             'credentials' => ChannelCredentials::createInsecure(),
+            'update_metadata' => function ($metaData) {
+                $metaData['Authorization'] = [$this->getAuthModel()->authenticate()];
+
+                return $metaData;
+            }
         ]);
     }
 
