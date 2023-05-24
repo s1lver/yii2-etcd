@@ -58,7 +58,7 @@ class EtcdGrpcModel implements EtcdServiceInterface
         /** @var \Etcd\RangeResponse $response */
         [$response, $status] = $this->client->Range($request)->wait();
 
-        if (STATUS_OK !== $status) {
+        if (STATUS_OK !== $status->code) {
             throw new EtcdException('Error');
         }
 
@@ -88,7 +88,7 @@ class EtcdGrpcModel implements EtcdServiceInterface
 
         [$response, $status] = $this->client->Put($request)->wait();
 
-        return STATUS_OK === $status;
+        return STATUS_OK === $status->code;
     }
 
     private function getClient(): KVClient
