@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-import "src/RPC/Proto/kv.proto";
+import "Proto/kv.proto";
 
 package etcdserverpb;
 
