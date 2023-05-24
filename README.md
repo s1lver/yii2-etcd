@@ -10,8 +10,8 @@ https://etcd.io
 ## Required
 
 - PHP: >= 8.0
-- grpc - for RPC (in developing)
-- protobuf - for RPC (in developing)
+- grpc - for RPC
+- protobuf - for RPC
 
 ## Install
 
@@ -69,4 +69,21 @@ Get etcd version
 Yii::$app->etcd->version;
 
 // {"etcdserver":"3.5.8","etcdcluster":"3.5.0"}
+```
+
+### Switch between supported protocol
+
+> etcd v3 uses gRPC for its messaging protocol. For languages with no gRPC support, etcd provides a JSON gRPC gateway. This gateway serves a RESTful proxy that translates HTTP/JSON requests into gRPC messages.
+
+
+```php
+$config = [
+    'components' => [
+        'etcd' => [
+            'class' => \S1lver\Etcd\Etcd::class,
+            ...
+            'protocol' => '\S1lver\Etcd\EtcdProtocol::GRPC', // Default value \S1lver\Etcd\EtcdProtocol::HTTP
+        ],
+    ],
+];
 ```
