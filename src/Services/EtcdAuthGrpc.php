@@ -38,7 +38,7 @@ class EtcdAuthGrpc implements EtcdAuthInterface
         [$response, $status] = $this->client->Authenticate($request)->wait();
 
         if (STATUS_OK !== $status->code) {
-            throw new EtcdException('Error');
+            throw new EtcdException('Errors: '.$status->details);
         }
 
         return $response->getToken();

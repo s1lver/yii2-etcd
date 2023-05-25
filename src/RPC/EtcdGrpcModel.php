@@ -68,7 +68,7 @@ class EtcdGrpcModel implements EtcdServiceInterface
         [$response, $status] = $this->client->Range($request)->wait();
 
         if (STATUS_OK !== $status->code) {
-            throw new EtcdException('Error');
+            throw new EtcdException('Errors: '.$status->details);
         }
 
         return new RangeResponse($this->collectKvs($response->getKvs()));
