@@ -1,7 +1,10 @@
 # Changelog yii2 etcd component
 
-## 1.1.0 (in developing)
-- Added the ability to switch protocol between grpc and http
+## 1.1.1 (in developing)
+
+
+## 1.1.0 (2023-05-25)
+- Added the ability to switch protocol between gRPC and HTTP
 - Returned `grpc/grpc` and added `google/protobuf` packages
 
 ## 1.0.6 (2023-05-23)
