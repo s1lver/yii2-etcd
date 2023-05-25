@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace S1lver\Etcd\Rest;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use S1lver\Etcd\EtcdEndpoint;
 use S1lver\Etcd\EtcdServiceInterface;
-use Yii;
+use S1lver\Etcd\Services\EtcdAuthInterface;
+use S1lver\Etcd\Services\EtcdAuthRest;
 use JsonException;
 
 class EtcdRestModel implements EtcdServiceInterface
@@ -101,11 +101,10 @@ class EtcdRestModel implements EtcdServiceInterface
 
     /**
      * @return array|array[]
-     * @throws GuzzleException|JsonException
      */
     private function getTokenOptions(): array
     {
-        $token = $this->authenticate()->token;
+        $token = $this->getAuthModel()->authenticate();
 
         return empty($token)
             ?[]
@@ -114,29 +113,8 @@ class EtcdRestModel implements EtcdServiceInterface
             ];
     }
 
-    /**
-     * @return AuthenticateResponse
-     * @throws GuzzleException|JsonException
-     */
-    public function authenticate(): AuthenticateResponse
+    public function getAuthModel(): EtcdAuthInterface
     {
-        $content = json_encode(['header' => [], 'token' => ''], JSON_THROW_ON_ERROR);
-
-        try {
-            $response = $this->client->post(
-                $this->host.EtcdEndpoint::ETCD_VERSION.EtcdEndpoint::AUTHENTICATE,
-                [
-                    RequestOptions::BODY => json_encode(
-                        ['name' => $this->user, 'password' => $this->password],
-                        JSON_THROW_ON_ERROR
-                    ),
-                ]
-            );
-            $content = $response->getBody()->getContents();
-        } catch (ClientException $exception) {
-            Yii::warning($exception);
-        }
-
-        return new AuthenticateResponse(json_decode($content, true, 512, JSON_THROW_ON_ERROR));
+        return new EtcdAuthRest($this->host, $this->user, $this->password, $this->client);
     }
 }
