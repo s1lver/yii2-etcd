@@ -33,9 +33,14 @@ to the require section of your composer.json file.
 
 ## Supported etcd methods
 
+### Main
 - `version`
+
+### KV
 - `range`
 - `put`
+
+### Auth
 - `authenticate`
 
 
