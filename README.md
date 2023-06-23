@@ -2,6 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/s1lver/yii2-etcd/v/stable.svg)](https://packagist.org/packages/s1lver/yii2-etcd)
 [![Total Downloads](http://poser.pugx.org/s1lver/yii2-etcd/downloads)](https://packagist.org/packages/s1lver/yii2-etcd)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/s1lver/yii2-etcd/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/s1lver/yii2-etcd/?branch=main)
 
 Interaction component with `etcd` (A distributed, reliable key-value store for the most critical data of a distributed system) for `Yii2 Framework`.
 
