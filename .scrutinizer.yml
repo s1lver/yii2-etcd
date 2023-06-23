@@ -22,5 +22,5 @@ build:
             - grpc-1.56.0
           ini:
             xdebug.mode: coverage
-          override:
-            idle_timeout: 600
+      override:
+        idle_timeout: 600
