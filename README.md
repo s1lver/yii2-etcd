@@ -2,6 +2,10 @@
 
 [![Latest Stable Version](https://poser.pugx.org/s1lver/yii2-etcd/v/stable.svg)](https://packagist.org/packages/s1lver/yii2-etcd)
 [![Total Downloads](http://poser.pugx.org/s1lver/yii2-etcd/downloads)](https://packagist.org/packages/s1lver/yii2-etcd)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=s1lver_yii2-etcd&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=s1lver_yii2-etcd)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=s1lver_yii2-etcd&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=s1lver_yii2-etcd)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=s1lver_yii2-etcd&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=s1lver_yii2-etcd)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=s1lver_yii2-etcd&metric=coverage)](https://sonarcloud.io/summary/new_code?id=s1lver_yii2-etcd)
 
 Interaction component with `etcd` (A distributed, reliable key-value store for the most critical data of a distributed system) for `Yii2 Framework`.
 
