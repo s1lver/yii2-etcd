@@ -9,7 +9,7 @@
         "ext-curl": "*",
         "guzzlehttp/guzzle": "^7.4.5",
         "grpc/grpc": "^1.42.0",
-        "google/protobuf": "^v3.11.4"
+        "google/protobuf": "^v4.27.1"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
