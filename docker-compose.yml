@@ -12,13 +12,9 @@ services:
     environment:
       PHP_IDE_CONFIG: ${PHP_IDE_CONFIG:-serverName=Docker}
       XDEBUG_CONFIG: ${XDEBUG_CONFIG:-client_host=host.docker.internal log_level=0 log=/tmp/xdebug.log}
-    command: >
-      bash -c "
-      set -eu;
-      flock runtime/composer-install.lock composer update --prefer-dist --no-interaction;
-      php --version;
-      set -x;
-      exec "$@""
+    command: sh -c "composer update --prefer-dist --no-interaction && php -v && sleep infinity"
+    stdin_open: true
+    tty: true
 
   etcd:
     container_name: etcd
