@@ -30,7 +30,7 @@ services:
       - '${ETCD_PEER_PORT:-2379}:2379'
       - '${ETCD_CLIENT_PORT:-2380}:2380'
     volumes:
-      - ${ROOT_PATH:-.}/tests/docker/etcd/etcd.conf.yml:/opt/bitnami/etcd/conf/etcd.conf.yml
+      - ${ROOT_PATH:-.}/etcd.conf.yml:/opt/etcd/conf/etcd.conf.yml
     networks:
       - etcd-network
 
