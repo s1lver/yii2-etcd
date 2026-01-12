@@ -1,0 +1,43 @@
+---
+
+services:
+  php:
+    container_name: etcd-php
+    hostname: etcd
+    build: .
+    volumes:
+      - ${ROOT_PATH:-.}:/var/www
+    networks:
+      - etcd-network
+    environment:
+      PHP_IDE_CONFIG: ${PHP_IDE_CONFIG:-serverName=Docker}
+      XDEBUG_CONFIG: ${XDEBUG_CONFIG:-client_host=host.docker.internal log_level=0 log=/tmp/xdebug.log}
+    command: >
+      bash -c "
+      set -eu;
+      flock runtime/composer-install.lock composer update --prefer-dist --no-interaction;
+      php --version;
+      set -x;
+      exec "$@""
+
+  etcd:
+    container_name: etcd
+    hostname: etcd
+    image: gcr.io/etcd-development/etcd:v3.6.7
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+    ports:
+      - '${ETCD_PEER_PORT:-2379}:2379'
+      - '${ETCD_CLIENT_PORT:-2380}:2380'
+    volumes:
+      - ${ROOT_PATH:-.}/tests/docker/etcd/etcd.conf.yml:/opt/bitnami/etcd/conf/etcd.conf.yml
+    networks:
+      - etcd-network
+
+networks:
+  etcd-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: '${DOCKER_SUBNET:-192.168.125.0/28}'
