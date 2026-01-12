@@ -5,7 +5,7 @@ RUN apk add git libzip-dev icu-dev autoconf g++ make linux-headers
 
 # Installing PHP extensions
 RUN docker-php-ext-install zip sockets intl pcntl opcache bcmath
-RUN printf "\n" | pecl install grpc-1.53.0 protobuf-3.22.1 xdebug-3.2.1 pcov-1.0.11
+RUN MAKEFLAGS="-j$(nproc)" yes | pecl install grpc-1.53.0 protobuf-3.22.1 xdebug-3.2.1 pcov-1.0.11
 RUN docker-php-ext-enable grpc protobuf xdebug pcov
 
 # Installing protoc utils
