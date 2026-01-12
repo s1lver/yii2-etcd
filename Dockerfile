@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 php:8.1.14-cli-alpine AS etcd-php
+FROM php:8.1.14-cli-alpine AS etcd-php
 
 # Installing the main image packages
 RUN apk add git libzip-dev icu-dev autoconf g++ make linux-headers
