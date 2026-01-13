@@ -5,15 +5,15 @@
     "license": "BSD-3-Clause",
     "minimum-stability": "dev",
     "require": {
-        "php": "^8.0",
+        "php": ">=8.2",
         "ext-curl": "*",
         "guzzlehttp/guzzle": "^7.4.5",
         "grpc/grpc": "^1.42.0",
-        "google/protobuf": "^v4.27.1"
+        "google/protobuf": "^v4.27.1",
+        "yiisoft/yii2": "^2.0.54"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
-        "yiisoft/yii2": "^2.0.45"
+        "roave/security-advisories": "dev-latest"
     },
     "suggest": {
         "ext-grpc": "Needed for the grpc protocol to work"
